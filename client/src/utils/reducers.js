@@ -23,14 +23,16 @@ export const reducer = (state, action) => {
   
       default:
         return state;
-    }
+      
+
     case UPDATE_CATEGORY:
         return {
             ...state,
             currentCategory: action.currentCategory
-        }
-
-        export function useProductReducer(initialState) {
-            return useReducer(reducer, initialState);
-        }
-  };
+        };
+    }
+     
+  }
+  export function useProductReducer(initialState) {
+    return useReducer(reducer, initialState);
+  }
