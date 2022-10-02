@@ -1,6 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers"
+import { useStoreContext } from '../../utils/GlobalState';
+import { ADD_TO_CART, UPDATE_CART_QUANTITY } from '../../utils/actions';
+import cartItem from "../CartItem";
+
+const [state, dispatch] = useStoreContext();
+
+const addToCart = () => {
+  const itemInCart = cart.find((cartItem) => cartItem._id === _id);
+
+  if(itemInCart) {
+    dispatch({
+      type: UPDATE_CART_QUANTITY,
+      _id: id,
+      purchaseQuantity: parseInt(itemInCart.purchaseQuantity) +1
+    });
+  } else {
+    dispatch({
+      type: ADD_TO_CART,
+      product: {...currentProduct, purchaseQuantity: 1 }
+    });
+  }
+};
 
 function ProductItem(item) {
   const {
@@ -24,7 +46,7 @@ function ProductItem(item) {
         <div>{quantity} {pluralize("item", quantity)} in stock</div>
         <span>${price}</span>
       </div>
-      <button>Add to cart</button>
+      <button onClick={addToCart}>Add to cart</button>
     </div>
   );
 }

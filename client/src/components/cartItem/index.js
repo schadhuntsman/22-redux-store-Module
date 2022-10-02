@@ -1,7 +1,16 @@
 import React from 'react';
-
+import { useStoreContext } from '../../utils/GlobalState';
+import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from '../../utils/actions';
 
 const cartItem = ( item ) => {
+    const [, dispatch] => useStoreContext();
+
+    const removeFromCart = item =>{
+        dispatch({
+            type: REMOVE_FROM_CART,
+            _id: item._id
+        });
+    };
   return (
     <div className="cart">
       <div className="close">[close]</div>
@@ -23,6 +32,7 @@ const cartItem = ( item ) => {
           <span
             role="img"
             aria-label="trash"
+            onClick={() => removeFromCart(item)}
           >
             🗑️
           </span>
