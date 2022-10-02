@@ -3,7 +3,23 @@ import { useStoreContext } from '../../utils/GlobalState';
 import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from '../../utils/actions';
 
 const cartItem = ( item ) => {
-    const [, dispatch] => useStoreContext();
+    const onChange = (e) => {
+        const value = e.target.value;
+
+        if (value === '0') {
+            dispatch({
+                type: REMOVE_FROM_CART,
+                _id: item._id
+            });
+        } else {
+            dispatch({
+                type: UPDATE_CART_QUANTITY,
+                _id: item._id,
+                purchaseQuantity: PageTransitionEvent(value)
+            });
+        }
+    };
+    const [, dispatch] = useStoreContext();
 
     const removeFromCart = item =>{
         dispatch({
@@ -28,6 +44,7 @@ const cartItem = ( item ) => {
             type="number"
             placeholder="1"
             value={item.purchaseQuantity}
+            onChange={onchange}
           />
           <span
             role="img"
